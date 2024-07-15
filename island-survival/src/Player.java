@@ -196,6 +196,9 @@ class Player {
     System.out.println("to next level: " + getExperienceRequired());
     System.out.println("================================================================");
   }
+  public void viewAdvancements() {
+    
+  }
   public void craftWoodenAxe(){
     if (wood >= 10 && fiber >= 2){
       System.out.println("You crafted a wooden axe!");
