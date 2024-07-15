@@ -18,13 +18,14 @@ public class MainClass {
     System.out.println("to the next level: " + p1.getExperienceRequired());
     System.out.println("================================================================");
     
-    // instructions 
+    // instructions
     System.out.println("INSTUCTIONS");
     System.out.println("if you have no instruments, simply restart the game");
-    System.out.println("");
+    System.out.println("instruments are stackable, so if you craft 2 stone axes, you can mine 4 wood at the same time");
     System.out.println("");
     System.out.println("type 1 if you understand");
     int userDecision = scanner.nextInt();
+
     // guide
     System.out.println("------------------------------------------------------------------------");
     System.out.println("GUIDE:");
@@ -34,6 +35,7 @@ public class MainClass {
     System.out.println("------------------------------------------------------------------------");
     System.out.println("type 1 to start a game");
     int userDecision1 = scanner.nextInt();
+
     // storyline
     System.out.println("========================================================================");
     System.out.println("STORYLINE");
@@ -49,10 +51,11 @@ public class MainClass {
     "You realize that you must leave the island at once, or face the consequences of the curse.\n" +
     "You decide to trust the creature and follow its guidance, knowing that you must leave this enchanting land behind.");
     System.out.println("========================================================================");
+
     // gameplay
     System.out.println("What do you want to do?");
     while(!hasBoat){
-      System.out.println("1: chop a three  |  2: mine stone  |  3: craft  |  4: inventory  | 5: profile");
+      System.out.println("1: chop a three  |  2: mine stone  |  3: craft  |  4: inventory  | 5: profile  | 6: advancements");
       int choice = scanner.nextInt();
       switch(choice){
       case 1:
@@ -84,6 +87,9 @@ public class MainClass {
       break;
       case 5:
       p1.viewProfile();
+      break;
+      case 6:
+      p1.viewAdvancements();
       break;
       default:
         System.out.println("error: unknown choice");
