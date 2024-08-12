@@ -3,263 +3,225 @@ import java.util.Scanner;
 
 class Player {
 
-  //Player
-  private String name;
-  private int level;
-  private int experience;
-  private int experienceRequired;
-  //Resources
-  private int wood;
-  private int stone;
-  private int fiber;
-  private int iron;
-  //Instruments
-  private int knife;
-  private int knifeDurability = 25;
-  private int axe;
-  private int axeDurability = 50;
-  private int pickaxe;
-  private int pickaxeDurability = 75;
-  //Items
-  public int boat;
+    private String name;
+    private int level;
+    private int experience;
+    private int experienceRequired;
+    private Resources resources;
+    private Crafting craft;
+    private Instruments instruments;
+    private Items items;
+    Advancements advancements;
+    private int knifeDurability = 25;
+    private boolean hasKnife = true;
+    private Random random = new Random();
+    private Scanner scanner = new Scanner(System.in);
 
-  private Random random = new Random();
-  Scanner scanner = new Scanner(System.in);
-  public Player() {
-    this.name = "Player";
-    this.level = 1;
-    this.experience = 0;
-    this.wood = 0;
-    this.stone = 0;
-    this.fiber = 0;
-    this.knife = 1;
-    this.axe = 0;
-    this.pickaxe = 0;
-  }
-
-  public Player (String name) {
-    this.name = name;
-    this.level = 1;
-    this.experience = 0;
-  }
-
-  public String getName() {
-   return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public int getLevel() {
-    return level;
-  }
-
-  public void setLevel(int level) {
-    this.level = level;
-  }
-
-  public int getExperience(){
-    return experience;
-  }
-
-  public void setExperience(int experience) {
-    this.experience = experience;
-  }
-
-  public int getExperienceRequired(){
-    return experienceRequired;
-  }
-
-  public int getWood() {
-    return wood;
-  }
-
-  public int getStone() {
-    return stone;
-  }
-  
-  public int getFiber() {
-    return fiber;
-  }
-
-  public int getIron() {
-    return iron;
-  }
-
-  public int getKnife() {
-    return knife;
-  }
-
-  public int getKnifeDurability() {
-    return knifeDurability;
-  }
-
-  public int getAxe() {
-    return axe;
-  }
-
-  public int getAxeDurability() {
-    return axeDurability;
-  }
-
-  public int getPickaxe() {
-    return pickaxe;
-  }
-
-  public int getPickaxeDurability() {
-    return pickaxeDurability;
-  }
-
-  public int getBoat() {
-    return boat;
-  }
-
-  public void chopTree() {
-    System.out.println("you chopped a tree");
-    wood++;
-    System.out.println("+ 1 wood");
-    axeDurability--;
-    System.out.println("- 1 axe durability");
-    int expGained = 17 + random.nextInt(16);
-    experience += expGained;
-    System.out.println("+ " + expGained + " experience points");
-
-    if (random.nextDouble() < 0.1) { 
-      fiber++;
-      System.out.println("+ 1 fiber");
+    public Player() {
+        this("Player");
     }
-  }
 
-  public void mineStone() {
-    System.out.println("you mined a stone");
-    stone++;
-    System.out.println("+ 1 stone");
-    pickaxeDurability--;
-    System.out.println("- 1 pickaxe durability");
-    int expGained = 12 + random.nextInt(12);
-    experience += expGained;
-    System.out.println("+ " + expGained + " experience points");
-    
-    if(random.nextDouble() < 0.05) {
-      iron++;
+    public Player(String name) {
+        this.name = name;
+        this.level = 1;
+        this.experience = 0;
+        this.experienceRequired = 100;
+        this.resources = new Resources();
+        this.craft = new Crafting();
+        this.instruments = new Instruments();
+        this.items = new Items();
+        this.advancements = new Advancements();
     }
-  }
 
-  public void craft() {
-    System.out.println("What do you want to craft?");
-    System.out.println("|1: wooden axe  (10 wood, 2 fiber)     |  2: stone axe  (25 stone, 5 fiber)     |  3: iron axe  (5 iron, 10 fiber)\n" +
-                       "|4: wooden pickaxe  (15 wood, 2 fiber) |  5: stone pickaxe  (30 stone, 5 fiber) |  6: iron pickaxe  (10 iron, 10 fiber)\n" +
-                       "|7: boat  (700 wood)                   |");
+    // Getters and Setters
+    public String getName() {
+        return name;
+    }
 
-    int choice = scanner.nextInt();
-    switch(choice){
-    case 1:
-    craftWoodenAxe();
-    break;
-    case 2:
-    craftStoneAxe();
-    break;
-    case 3:
-    craftIronAxe();
-    break;
-    case 4:
-    craftWoodenPickaxe(); 
-    break;
-    case 5:
-    craftStonePickaxe();
-    break;
-    case 6:
-    craftIronPickaxe();
-    break;
-    case 7:
-    craftBoat();
-    break;
-    default:
-    System.out.println("Invalid choice");
+    public void setName(String name) {
+        this.name = name;
     }
-  }
 
-  public void levelUp() {
-    if (experience > 99) {
-      level++;
-      experience = experience - 100;
-        System.out.println("Congratulations! You reached the " + level + "th level!");
+    public int getLevel() {
+        return level;
     }
-  }
-  public void viewProfile(){
-    System.out.println("Your profile");
-    System.out.println("================================================================");
-    System.out.println("Name: " + getName());
-    System.out.println("Level: " + getLevel());
-    System.out.println("Experience: " + getExperience());
-    System.out.println("to next level: " + getExperienceRequired());
-    System.out.println("================================================================");
-  }
-  public void viewAdvancements() {
-    
-  }
-  public void craftWoodenAxe(){
-    if (wood >= 10 && fiber >= 2){
-      System.out.println("You crafted a wooden axe!");
-      wood -= 10;
-      fiber -= 2;
-    } else {
-      System.out.println("You cannot craft this item!");
+
+    public void setLevel(int level) {
+        this.level = level;
     }
-  }
-  public void craftStoneAxe() {
-    if (stone >= 25 && fiber >= 5) {
-      System.out.println("You crafted a stone axe!");
-      stone -= 10;
-      fiber -= 5;
-    } else {
-      System.out.println("You cannot craft this item!");
+
+    public int getExperience() {
+        return experience;
     }
-  }
-  public void craftIronAxe() {
-    if(iron >=5 && fiber >= 10){
-      System.out.println("You crafted an iron axe!");
-      iron -= 5;
-      fiber -= 10;
-    } else {
-      System.out.println("You cannot craft this item, you don't have enough resources");
+
+    public void setExperience(int experience) {
+        this.experience = experience;
     }
-  }
-  public void craftWoodenPickaxe() {
-    if(wood >= 15 && fiber >= 2) {
-      System.out.println("You crafted a wooden pickaxe!");
-      wood -= 15;
-      fiber -= 2;
-    } else {
-      System.out.println("You cannot craft this item, you don't have enough resources");
+
+    public int getExperienceRequired() {
+        return experienceRequired;
     }
-  }
-  public void craftStonePickaxe() {
-    if(stone >= 30 && fiber >= 5) {
-      System.out.println("You crafted a stone pickaxe!");
-      stone -= 30;
-      fiber -= 5;
-    } else {
-      System.out.println("You cannot craft this item, you don't have enough resources");
+
+    public Resources getResources() {
+        return resources;
     }
-  }
-  public void craftIronPickaxe() {
-    if(iron >= 10 && fiber >= 10) {
-      System.out.println("You crafted an iron pickaxe!");
-      iron -= 10;
-      fiber -= 10;
-    } else {
-      System.out.println("You cannot craft this item, you don't have enough resources");
+
+    public int getBoat() {
+        return items.getboat();
     }
-  }
-  public void craftBoat() {
-  if(wood >= 700){
-    System.out.println("You crafted a boat!");
-    boat++;
-    wood -= 700;
-    } else {
-    System.out.println("You don't have enough wood to craft a boat, you need" + " more wood");
+
+    public boolean hasKnife() {
+        return hasKnife;
     }
-  }
+
+    public int getKnifeDurability() {
+        return knifeDurability;
+    }
+
+    public void useKnife() {
+        knifeDurability--;
+        if (knifeDurability <= 0) {
+            hasKnife = false;
+            System.out.println("Your knife has broken.");
+        }
+    }
+
+    public void chopTree() {
+        int woodGained = 0;
+        if (hasKnife) {
+            woodGained = 1;
+            useKnife();
+            System.out.println("You used your knife to chop a tree \n+ " + woodGained + " wood");
+        } else {
+            woodGained = instruments.useAxes();
+            if (woodGained <= 0) {
+                System.out.println("You don't have an axe to chop a tree!");
+                return;
+            }
+            System.out.println("You chopped a tree \n+ " + woodGained + " wood");
+        }
+        resources.addWood(woodGained);
+        gainExperience(17 * woodGained, 16 * woodGained);
+        
+        if (random.nextDouble() < 0.3) {
+            int fiberGained = woodGained;
+            resources.addFiber(fiberGained);
+            System.out.println("+ " + fiberGained + " fiber");
+        }
+        advancements.unlockFirstWood();
+        if (resources.getWood() >= 1000)
+        advancements.unlockWood1000();
+    }
+
+    public void mineStone() {
+        int stoneGained = instruments.usePickaxes();
+        if (stoneGained <= 0) {
+            System.out.println("You don't have a pickaxe to mine stone!");
+            return;
+        }
+        System.out.println("You mined stone and gained " + stoneGained + " stone.");
+        resources.addStone(stoneGained);
+        gainExperience(12 * stoneGained, 12 * stoneGained);
+
+        if (random.nextDouble() < 0.05) {
+            int ironGained = stoneGained;
+            resources.addIron(ironGained);
+            System.out.println("+ " + ironGained + " iron");
+            advancements.unlockFirstIron();
+            if (resources.getIron() >= 1000)
+            advancements.unlockIron1000();
+        }
+        advancements.unlockFirstStone();
+        if (resources.getStone() >= 1000)
+        advancements.unlockStone1000();
+    }
+
+    private void gainExperience(int baseExp, int randomExp) {
+        int expGained = baseExp + random.nextInt(randomExp);
+        experience += expGained;
+        System.out.println("+ " + expGained + " experience points");
+        levelUp();
+    }
+
+    public void craft() {
+        System.out.println("What do you want to craft?");
+        System.out.println("|1: wooden axe  (10 wood, 2 fiber)     |  2: stone axe  (25 stone, 5 fiber)     |  3: iron axe  (5 iron, 10 fiber)\n" +
+                           "|4: wooden pickaxe  (15 wood, 2 fiber) |  5: stone pickaxe  (30 stone, 5 fiber) |  6: iron pickaxe  (10 iron, 10 fiber)\n" +
+                           "|7: boat  (700 wood)                   \n"+
+                           "|99: exit");
+
+        int choice = scanner.nextInt();
+        switch(choice) {
+            case 1:
+                if (craft.craftWoodenAxe(resources)) {
+                    instruments.addAxe(new Axe("Wooden Axe", 50, 1));
+                }
+                break;
+            case 2:
+                if (craft.craftStoneAxe(resources)) {
+                    instruments.addAxe(new Axe("Stone Axe", 100, 2));
+                }
+                break;
+            case 3:
+                if (craft.craftIronAxe(resources)) {
+                    instruments.addAxe(new Axe("Iron Axe", 200, 3));
+                }
+                break;
+            case 4:
+                if (craft.craftWoodenPickaxe(resources)) {
+                    instruments.addPickaxe(new Pickaxe("Wooden Pickaxe", 75, 1));
+                }
+                break;
+            case 5:
+                if (craft.craftStonePickaxe(resources)) {
+                    instruments.addPickaxe(new Pickaxe("Stone Pickaxe", 150, 2));
+                }
+                break;
+            case 6:
+                if (craft.craftIronPickaxe(resources)) {
+                    instruments.addPickaxe(new Pickaxe("Iron Pickaxe", 300, 3));
+                }
+                break;
+            case 7:
+                if (craft.craftBoat(resources)) {
+                    items.setboat(1);
+                    System.out.println("Congratulations! You crafted a boat and can now leave the island!");
+                }
+                break;
+            case 99:
+                System.out.println("");
+                break;
+            default:
+                System.out.println("Invalid choice");
+                break;
+        }
+    }
+
+    public void levelUp() {
+        while (experience >= experienceRequired) {
+            level++;
+            experience -= experienceRequired;
+            experienceRequired += (experienceRequired / 5);
+            System.out.println("Congratulations! You reached level " + level + "!");
+            if (level == 50)
+            advancements.unlockLevel50();
+        }
+    }
+
+    public void viewProfile() {
+        System.out.println("Your profile");
+        System.out.println("================================================================");
+        System.out.println("Name: " + getName());
+        System.out.println("Level: " + getLevel());
+        System.out.println("Experience: " + getExperience());
+        System.out.println("To next level: " + (getExperienceRequired() - getExperience()));
+        System.out.println("================================================================");
+    }
+
+    public void viewAdvancements() {
+        System.out.println("Your advancements:");
+        advancements.displayCompletedAdvancements();
+        System.out.println("\nlocked advancements:");
+        advancements.displayLockedAdvancements();
+    }
 }
