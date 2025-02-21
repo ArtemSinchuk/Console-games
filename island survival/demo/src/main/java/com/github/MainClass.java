@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class MainClass {
     private static boolean hasBoat = false;
-    static Scanner scanner = new Scanner(System.in);
-    
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+    
         System.out.println("Welcome to the Island survival game!\nExpand your terminal to see the text");
         System.out.print("Please enter your nickname: ");
         Player p1 = new Player(scanner.nextLine());
