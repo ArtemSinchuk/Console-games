@@ -1,5 +1,9 @@
 package com.github;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Resources {
 
   private int wood;
@@ -16,49 +20,6 @@ public class Resources {
       this.fiber = 0;
   }
 
-  // Getters
-  public int getWood() {
-      return wood;
-  }
-
-  public int getStone() {
-      return stone;
-  }
-
-  public int getIron() {
-      return iron;
-  }
-
-  public int getGold() {
-      return gold;
-  }
-
-  public int getFiber() {
-      return fiber;
-  }
-
-  // Setters
-  public void setWood(int wood) {
-      this.wood = wood;
-  }
-
-  public void setStone(int stone) {
-      this.stone = stone;
-  }
-
-  public void setIron(int iron) {
-      this.iron = iron;
-  }
-
-  public void setGold(int gold) {
-      this.gold = gold;
-  }
-
-  public void setFiber(int fiber) {
-      this.fiber = fiber;
-  }
-
-  // Add resources
   public void addWood(int amount) {
       wood += amount;
   }
@@ -79,7 +40,6 @@ public class Resources {
       fiber += amount;
   }
 
-  // Reduce resources
   public void reduceWood(int amount) {
       wood -= amount;
   }
@@ -100,7 +60,6 @@ public class Resources {
       fiber -= amount;
   }
 
-  // Display resources
   public void displayResources() {
       System.out.println("Resources:");
       if (wood > 0) System.out.println("Wood: " + wood);
