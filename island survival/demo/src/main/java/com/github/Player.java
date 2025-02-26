@@ -1,7 +1,15 @@
 package com.github;
+
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
+import org.jline.terminal.Terminal;
+import org.jline.terminal.TerminalBuilder;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 class Player {
 
     private String name;
@@ -32,39 +40,6 @@ class Player {
         this.instruments = new Instruments();
         this.items = new Items();
         this.advancements = new Advancements();
-    }
-
-    // Getters and Setters
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public int getExperience() {
-        return experience;
-    }
-
-    public void setExperience(int experience) {
-        this.experience = experience;
-    }
-
-    public int getExperienceRequired() {
-        return experienceRequired;
-    }
-
-    public Resources getResources() {
-        return resources;
     }
 
     public int getBoat() {
