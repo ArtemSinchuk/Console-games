@@ -43,7 +43,7 @@ class Player {
     }
 
     public int getBoat() {
-        return items.getboat();
+        return items.getBoat();
     }
 
     public boolean hasKnife() {
@@ -160,7 +160,7 @@ class Player {
                 break;
             case 7:
                 if (craft.craftBoat(resources)) {
-                    items.setboat(1);
+                    items.setBoat(1);
                     System.out.println("Congratulations! You crafted a boat and can now leave the island!");
                 }
                 break;
